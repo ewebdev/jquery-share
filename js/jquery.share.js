@@ -52,8 +52,10 @@
 
           // bind click
           $element.on('click', '.' + settings.itemTriggerClass, function (e) {
-            window.open($(this).attr('href'), 't', 'toolbar=0,resizable=1,status=0,width=640,height=528');
+            var top = (window.screen.height / 2) - (settings.popupHeight / 2),
+              left = (window.screen.width / 2) - (settings.popupWidth / 2);
             e.preventDefault();
+            window.open($(this).attr('href'), 't', 'toolbar=0,resizable=1,status=0,width=' + settings.popupWidth + ',height=' + settings.popupHeight + ',top=' + top + ',left=' + left);
           });
 
         });// end plugin instance
@@ -72,6 +74,8 @@
   };
 
   $.fn.share.defaults = {
+    popupWidth: 640,
+    popupHeight: 528,
     networks: ['facebook', 'twitter', 'linkedin', 'googleplus', 'email'],
     itemTriggerClass: 'js-share',
     containerTemplate: function (props) {

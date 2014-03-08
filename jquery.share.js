@@ -31,9 +31,9 @@
         this.share.settings = $.extend({}, this.share.defaults, options);
 
         var settings = this.share.settings,
-          pageTitle = settings.title || document.title,
+          pageTitle = settings.title || document.title || '',
           pageUrl = settings.pageUrl || window.location.href,
-          pageDesc = settings.pageDesc || $('head > meta[name="description"]').attr("content"),
+          pageDesc = settings.pageDesc || $('head > meta[name="description"]').attr("content") || '',
           u = encodeURIComponent(pageUrl),
           t = encodeURIComponent(pageTitle);
 

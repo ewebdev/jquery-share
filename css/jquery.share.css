@@ -1,0 +1,59 @@
+@import "fontello-38831927/css/fontello.css";
+.sharing-providers {
+  list-style-type: none;
+}
+.sharing-providers,
+.sharing-providers > li {
+  padding: 0;
+  margin: 0;
+}
+.sharing-providers > li {
+  display: inline-block;
+}
+.sharing-providers > li > a {
+  width: 35px;
+  height: 35px;
+  line-height: 37px;
+  text-align: center;
+  font-size: 15px;
+  display: inline-block;
+  color: #fff;
+  transition: all 200ms ease-in-out;
+}
+.sharing-providers > li > a,
+.sharing-providers > li > a:hover {
+  text-decoration: none;
+}
+.sharing-providers > li > a:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+.sharing-providers > li.facebook {
+  background: #3b5998;
+}
+.sharing-providers > li.googleplus {
+  background: #d14836;
+}
+.sharing-providers > li.twitter {
+  background: #39a9e0;
+}
+.sharing-providers > li.linkedin {
+  background: #007fb1;
+}
+.sharing-providers > li.tumblr {
+  background: #2c4762;
+}
+.sharing-providers > li.digg {
+  background: #333333;
+}
+.sharing-providers > li.reddit {
+  background: #CEE3F8;
+}
+.sharing-providers > li.pinterest {
+  background: #cb2027;
+}
+.sharing-providers > li.stumbleupon {
+  background: #EB4924;
+}
+.sharing-providers > li.email {
+  background: #666666;
+}

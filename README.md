@@ -1,4 +1,3 @@
-jquery-share - A jQuery social plugin for simultaneous sharing to multiple social networks
-================
+##jquery-share
 
 Forked & heavily modified (fixed bad code and removed unnecessary features)

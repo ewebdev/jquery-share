@@ -29,7 +29,7 @@
 
       init: function (options) {
         this.share.settings = $.extend({}, this.share.defaults, options);
-        debugger;
+
         var settings = this.share.settings,
           pageTitle = settings.title || document.title,
           pageUrl = settings.pageUrl || window.location.href,
@@ -86,8 +86,7 @@
         '<i class="icon-' + props.provider + '">' +
         '</a>' +
         '</li>';
-    },
-    orientation: 'horizontal'
+    }
   };
 
   $.fn.share.settings = {};

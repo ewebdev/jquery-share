@@ -1,5 +1,5 @@
 /**
- * forked from https://github.com/iatek/jquery-share
+ * https://github.com/ewebdev/jquery-share
  */
 
 (function ($, window, undefined) {

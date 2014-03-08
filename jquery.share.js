@@ -7,58 +7,8 @@
 
   $.fn.share = function (method) {
 
-    var methods = {
-
-      init: function (options) {
-        this.share.settings = $.extend({}, this.share.defaults, options);
-
-        var settings = this.share.settings,
-          itemTriggerClass = settings.itemTriggerClass,
-          networks = settings.networks,
-          css = settings.css,
-          containerTemplate = settings.containerTemplate,
-          itemTemplate = settings.itemTemplate,
-          pageTitle = settings.title || $(document).attr('title'),
-          pageUrl = settings.urlToShare || $(location).attr('href'),
-          pageDesc = $('head > meta[name="description"]').attr("content");
-
-        // each instance of this plugin
-        return this.each(function () {
-          var $element = $(containerTemplate(settings)).appendTo($(this)),
-            id = $element.attr("id"),
-            u = encodeURIComponent(pageUrl),
-            t = encodeURIComponent(pageTitle),
-            d = pageDesc.substring(0, 250),
-            href;
-
-          // append HTML for each network button
-          for (var item in networks) {
-            item = networks[item];
-            href = helpers.networkDefs[item].url;
-            href = href.replace('|u|', u).replace('|t|', t).replace('|d|', d)
-              .replace('|140|', t.substring(0, 130));
-            $(itemTemplate({provider: item, href: href, itemTriggerClass: itemTriggerClass})).appendTo($element);
-          }
-
-          if (css) {
-            $element.css(css);
-          }
-
-          // bind click
-          $element.on('click', '.' + itemTriggerClass, function (e) {
-            console.log(e);
-            console.log($(this).attr('href'));
-            window.open($(this).attr('href'), 't', 'toolbar=0,resizable=1,status=0,width=640,height=528');
-            e.preventDefault();
-          });
-
-        });// end plugin instance
-
-      }
-    };
-
     var helpers = {
-      networkDefs: {
+      networks: {
         facebook: {url: 'http://www.facebook.com/share.php?u=|u|'},
         //http://twitter.com/home?status=jQuery%20Share%20Social%20Media%20Plugin%20-%20Share%20to%20multiple%20social%20networks%20from%20a%20single%20form%20http://plugins.in1.com/share/demo
         twitter: {url: 'https://twitter.com/share?url=|u|&text=|140|'},
@@ -71,7 +21,46 @@
         pinterest: {url: 'http://pinterest.com/pin/create/button/?url=|u|&media=&description=|d|'},
         posterous: {url: 'http://posterous.com/share?linkto=|u|&title=|t|'},
         stumbleupon: {url: 'http://www.stumbleupon.com/submit?url=|u|&title=|t|'},
-        email: {url: 'mailto:?subject=|t|&body=|u|'}
+        email: {url: 'mailto:?subject=|t|&body=You have to check this out: |u|'}
+      }
+    };
+
+    var methods = {
+
+      init: function (options) {
+        this.share.settings = $.extend({}, this.share.defaults, options);
+        debugger;
+        var settings = this.share.settings,
+          pageTitle = settings.title || document.title,
+          pageUrl = settings.pageUrl || window.location.href,
+          pageDesc = settings.pageDesc || $('head > meta[name="description"]').attr("content"),
+          u = encodeURIComponent(pageUrl),
+          t = encodeURIComponent(pageTitle);
+
+        // each instance of this plugin
+        return this.each(function () {
+          var $element = $(settings.containerTemplate(settings)).appendTo($(this)),
+            id = $element.attr("id"),
+            d = pageDesc.substring(0, 250),
+            href;
+
+          // append HTML for each network button
+          for (var item in settings.networks) {
+            item = settings.networks[item];
+            href = helpers.networks[item].url;
+            href = href.replace('|u|', u).replace('|t|', t).replace('|d|', d)
+              .replace('|140|', t.substring(0, 130));
+            $(settings.itemTemplate({provider: item, href: href, itemTriggerClass: settings.itemTriggerClass})).appendTo($element);
+          }
+
+          // bind click
+          $element.on('click', '.' + settings.itemTriggerClass, function (e) {
+            window.open($(this).attr('href'), 't', 'toolbar=0,resizable=1,status=0,width=640,height=528');
+            e.preventDefault();
+          });
+
+        });// end plugin instance
+
       }
     };
 
@@ -93,7 +82,7 @@
     },
     itemTemplate: function (props) {
       return '<li class="' + props.provider + '">' +
-        '<a href="' + props.href + '" title="Share this page on ' + props.provider + '" class=' + props.itemTriggerClass + ' ' + props.provider + '">' +
+        '<a href="' + props.href + '" title="Share this page ' + (props.provider === 'email' ? 'via ' : 'on ') + props.provider + '" class=' + props.itemTriggerClass + ' ' + props.provider + '">' +
         '<i class="icon-' + props.provider + '">' +
         '</a>' +
         '</li>';

@@ -52,10 +52,10 @@
 
           // bind click
           $element.on('click', '.' + settings.itemTriggerClass, function (e) {
-            var top = (window.screen.height / 2) - (settings.popupHeight / 2),
-              left = (window.screen.width / 2) - (settings.popupWidth / 2);
             e.preventDefault();
-            window.open($(this).attr('href'), 't', 'toolbar=0,resizable=1,status=0,width=' + settings.popupWidth + ',height=' + settings.popupHeight + ',top=' + top + ',left=' + left);
+            var top = (screen.height / 2) - (settings.popupHeight / 2),
+              left = (screen.width / 2) - (settings.popupWidth / 2);
+            window.open($(this).data('href') || $(this).attr('href'), 't', 'toolbar=0,resizable=1,status=0,copyhistory=no,width=' + settings.popupWidth + ',height=' + settings.popupHeight + ',top=' + top + ',left=' + left);
           });
 
         });// end plugin instance
@@ -83,7 +83,7 @@
     },
     itemTemplate: function (props) {
       return '<li class="' + props.provider + '">' +
-        '<a href="' + props.href + '" title="Share this page ' + (props.provider === 'email' ? 'via ' : 'on ') + props.provider + '" class=' + props.itemTriggerClass + ' ' + props.provider + '">' +
+        '<a href="#" data-href="' + props.href + '" title="Share this page ' + (props.provider === 'email' ? 'via ' : 'on ') + props.provider + '" class=' + props.itemTriggerClass + ' ' + props.provider + '">' +
         '<i class="icon-' + props.provider + '">' +
         '</a>' +
         '</li>';
